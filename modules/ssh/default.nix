@@ -1,7 +1,7 @@
 {config, ...}: {
   programs.ssh = {
     enable = true;
-    # includes = ["~/.ssh/config.local"];
+    includes = ["~/.ssh/config.local"];
     serverAliveInterval = 60;
     matchBlocks = {
       "*" = {
@@ -87,5 +87,5 @@
     };
   };
 
-  # home.file.".ssh/rc".source = config.lib.file.mkOutOfStoreSymlink ./rc;
+  home.file.".ssh/rc".source = config.lib.file.mkOutOfStoreSymlink ./rc;
 }
