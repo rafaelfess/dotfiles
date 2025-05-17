@@ -1,0 +1,46 @@
+# vi:ft=conf
+#
+# https://ghostty.org/docs/config/reference
+#
+
+auto-update-channel = tip
+window-decoration = true
+window-theme = "dark"
+window-save-state = always
+window-padding-balance = true
+# makes it maximizes the window
+window-height = 9999
+window-width = 9999
+confirm-close-surface = true
+macos-option-as-alt = true
+macos-titlebar-style = "tabs"
+shell-integration = none
+cursor-style = block
+cursor-style-blink = true
+mouse-hide-while-typing = true
+theme = GruvboxDarkHard
+clipboard-read = "allow"
+clipboard-paste-protection = false
+
+# makes it darker like it was before https://github.com/mbadolato/iTerm2-Color-Schemes/commit/506ab2b98b6546d1dc46327dfa1e1e3f8363fbc0
+palette = "0=#1b1b1b"
+background = "#1b1b1b"
+
+font-family = "TX-02"
+font-size = 14
+font-feature = zero
+font-feature = calt
+font-feature = liga
+
+# https://github.com/ryanoasis/nerd-fonts/wiki/Glyph-Sets-and-Code-Points
+# powerline & powerline-extras
+font-codepoint-map = U+e0b0-U+e0b3,U+e0b4-U+e0c8,U+e0cc-U+e0d4,U+e0ca=JetBrainsMono Nerd Font Mono
+
+# font-awesome
+font-codepoint-map = U+f000-U+f2e0,U+e200-U+e2a9=JetBrainsMono Nerd Font Mono
+
+# seti-ui
+font-codepoint-map = U+e5fa-U+e6b1=JetBrainsMono Nerd Font Mono
+
+# codicons
+font-codepoint-map = U+ea60-U+ebeb=JetBrainsMono Nerd Font Mono

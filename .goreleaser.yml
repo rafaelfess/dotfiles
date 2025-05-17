@@ -1,0 +1,123 @@
+# yaml-language-server: $schema=https://goreleaser.com/static/schema-pro.json
+version: 2
+project_name: dotfiles.nix
+builds:
+  - skip: true
+changelog:
+  sort: asc
+  use: github
+  divider: "---"
+  filters:
+    exclude:
+      - "^.*chore\\(nix\\):+.*$"
+  groups:
+    - title: "nix"
+      regexp: "^.*\\(nix\\):+.*$"
+      order: 200
+      groups:
+        - title: improvements
+          regexp: "^feat.*$"
+          order: 100
+        - title: fixes
+          regexp: "^fix.*$"
+          order: 200
+        - title: other
+          order: 9999
+    - title: "darwin"
+      regexp: "^.*\\((darwin|macos)\\):+.*$"
+      order: 201
+      groups:
+        - title: improvements
+          regexp: "^feat.*$"
+          order: 100
+        - title: fixes
+          regexp: "^fix.*$"
+          order: 200
+        - title: other
+          order: 9999
+    - title: "linux"
+      regexp: "^.*\\((linux|nixos)\\):+.*$"
+      order: 202
+      groups:
+        - title: improvements
+          regexp: "^feat.*$"
+          order: 100
+        - title: fixes
+          regexp: "^fix.*$"
+          order: 200
+        - title: other
+          order: 9999
+    - title: "editor"
+      regexp: "^.*\\((vim|nvim|neovim)\\):+.*$"
+      order: 240
+      groups:
+        - title: improvements
+          regexp: "^feat.*$"
+          order: 100
+        - title: fixes
+          regexp: "^fix.*$"
+          order: 200
+        - title: other
+          order: 9999
+    - title: "tmux"
+      regexp: "^.*\\(tmux\\):+.*$"
+      order: 250
+      groups:
+        - title: improvements
+          regexp: "^feat.*$"
+          order: 100
+        - title: fixes
+          regexp: "^fix.*$"
+          order: 200
+        - title: other
+          order: 9999
+    - title: "system"
+      regexp: "^.*\\((system|fish|fzf|ssh|core|pkg|pkgs)\\):+.*$"
+      order: 100
+      groups:
+        - title: improvements
+          regexp: "^feat.*$"
+          order: 100
+        - title: fixes
+          regexp: "^fix.*$"
+          order: 200
+        - title: other
+          order: 9999
+    - title: "git"
+      regexp: "^.*\\((git|gh)\\):+.*$"
+      order: 300
+      groups:
+        - title: improvements
+          regexp: "^feat.*$"
+          order: 100
+        - title: fixes
+          regexp: "^fix.*$"
+          order: 200
+        - title: other
+          order: 9999
+    - title: "terminals"
+      regexp: "^.*\\((kitty|wezterm|rio|ghostty|alacritty)\\):+.*$"
+      order: 400
+      groups:
+        - title: improvements
+          regexp: "^feat.*$"
+          order: 100
+        - title: fixes
+          regexp: "^fix.*$"
+          order: 200
+        - title: other
+          order: 9999
+    - title: "ai"
+      regexp: "^.*\\(ai\\):+.*$"
+      order: 500
+      groups:
+        - title: improvements
+          regexp: "^feat.*$"
+          order: 100
+        - title: fixes
+          regexp: "^fix.*$"
+          order: 200
+        - title: other
+          order: 9999
+    - title: other
+      order: 999

@@ -1,0 +1,3 @@
+#!/bin/sh
+set -e
+pbcopy < ~/.ssh/com_bleesoft_rafael_dev_public_id.pub
