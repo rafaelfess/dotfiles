@@ -12,9 +12,9 @@
   programs.ssh = {
     startAgent = true;
     agentTimeout = "1h";
-    extraConfig = ''
-      AddKeysToAgent yes
-    '';
+    # extraConfig = ''
+    #   AddKeysToAgent yes
+    # '';
     enableAskPassword = true;
   };
 
