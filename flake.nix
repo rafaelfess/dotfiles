@@ -6,6 +6,12 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    # Snap support
+    nix-snapd = {
+      url = "github:nix-community/nix-snapd";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Utils
     flake-utils.url = "github:numtide/flake-utils";
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -39,6 +45,7 @@
 
   outputs = {
     nur,
+    nix-snapd,
     # , neovim-nightly
     # caarlos0-nur,
     # charmbracelet-nur,
@@ -83,6 +90,9 @@
           ./machines/darkstar
           ./modules/flatpak.nix
           # ./modules/appimage.nix
+          nix-snapd.nixosModules.default
+          ./modules/snap.nix
+          { snap.enable = true; }
           home-manager.nixosModules.home-manager
           {
             users.users.rafael = {

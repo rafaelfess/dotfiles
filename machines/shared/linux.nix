@@ -135,7 +135,6 @@
     element-desktop
     # Development Tools
     jetbrains-toolbox
-    vscode
     sublime-merge
     # Media
     vlc
