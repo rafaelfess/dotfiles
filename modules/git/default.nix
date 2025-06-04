@@ -33,7 +33,7 @@
       commit.gpgSign = true;
       gpg.format = "ssh";
       gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
-      user.signingKey = "~/GitSigningKeys/com_bleesoft_r__signingkey";
+      user.signingKey = "~/GitSigningKeys/com_bleesoft_r__git_signingkey";
       core = {
         editor = "nvim";
         compression = -1;
