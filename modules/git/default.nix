@@ -7,7 +7,7 @@
     git-lfs
     nur.repos.caarlos0.diffnav
   ];
-  home.file.".ssh/allowed_signers".text = "* ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHEpUup62XfNexCKK0eJaLcFwvNrDUZdgCui7/2pwzGl r@bleesoft.com";
+  home.file.".ssh/allowed_signers".text = "* ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH4beNfrtG72lT5jM27DZ+TCootF7daf4C/WKi+NGPep r+signing-key@bleesoft.com";
   programs.git = {
     enable = true;
     delta.enable = true;
@@ -33,7 +33,7 @@
       commit.gpgSign = true;
       gpg.format = "ssh";
       gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
-      user.signingKey = "~/GitSigningKeys/com_bleesoft_r__git_signingkey";
+      user.signingKey = "~/GitSigningKeys/com_bleesoft_r__signingkey";
       core = {
         editor = "nvim";
         compression = -1;
