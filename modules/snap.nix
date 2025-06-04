@@ -45,7 +45,11 @@
         installSnap = name: snap: ''
           # Install ${snap.name} via snap
           echo "Installing ${snap.name}..."
-          /etc/profiles/per-user/root/bin/snap install ${snap.name} ${if snap.classic then "--classic" else ""}
+          /etc/profiles/per-user/root/bin/snap install ${snap.name} ${
+            if snap.classic
+            then "--classic"
+            else ""
+          }
         '';
       in ''
         # Wait for snapd to be fully started

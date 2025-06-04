@@ -1,4 +1,4 @@
-{ stdenv, ... }:
+{stdenv, ...}:
 stdenv.mkDerivation {
   name = "caarlos0-bins";
   version = "unstable";

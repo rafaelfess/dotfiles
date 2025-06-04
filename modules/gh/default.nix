@@ -1,5 +1,8 @@
-{ config, pkgs, ... }:
 {
+  config,
+  pkgs,
+  ...
+}: {
   programs.gh = {
     enable = true;
     settings = {
@@ -17,7 +20,7 @@
     };
   };
 
-  home.packages = [ pkgs.gh-dash ];
+  home.packages = [pkgs.gh-dash];
   xdg.configFile."gh-dash/config.yml" = {
     source = config.lib.file.mkOutOfStoreSymlink ./gh-dash.yml;
   };

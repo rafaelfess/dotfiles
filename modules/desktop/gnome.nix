@@ -89,8 +89,8 @@
     gnome-control-center
     dconf-editor
     # Clipboard Support
-    wl-clipboard  # Wayland clipboard utilities
-    xclip        # X11 clipboard utilities (fallback)
+    wl-clipboard # Wayland clipboard utilities
+    xclip # X11 clipboard utilities (fallback)
   ];
 
   services.gnome.gnome-settings-daemon.enable = true;

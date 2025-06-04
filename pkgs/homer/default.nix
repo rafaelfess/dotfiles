@@ -5,9 +5,8 @@
   mkYarnPackage,
   pkgs,
   ...
-}:
-let
-  formatYaml = pkgs.formats.yaml { };
+}: let
+  formatYaml = pkgs.formats.yaml {};
   config = formatYaml.generate "config.yml" {
     title = "Media";
     header = true;
@@ -107,31 +106,31 @@ let
     ];
   };
 in
-mkYarnPackage rec {
-  name = "homer";
-  version = "fork";
-  src = fetchFromGitHub {
-    owner = "caarlos0";
-    repo = "homer";
-    rev = "main";
-    hash = "sha256-xNziRpNVCM13IckyETbD4LQ4YWWlvXUz4OLooayFmVI=";
-  };
+  mkYarnPackage rec {
+    name = "homer";
+    version = "fork";
+    src = fetchFromGitHub {
+      owner = "caarlos0";
+      repo = "homer";
+      rev = "main";
+      hash = "sha256-xNziRpNVCM13IckyETbD4LQ4YWWlvXUz4OLooayFmVI=";
+    };
 
-  offlineCache = fetchYarnDeps {
-    yarnLock = "${src}/yarn.lock";
-    hash = "sha256-6OAK9zTF/Yev4f/yg3GZfkFMflBzspt3vDnVpo71DPw=";
-  };
+    offlineCache = fetchYarnDeps {
+      yarnLock = "${src}/yarn.lock";
+      hash = "sha256-6OAK9zTF/Yev4f/yg3GZfkFMflBzspt3vDnVpo71DPw=";
+    };
 
-  distPhase = "true";
+    distPhase = "true";
 
-  buildPhase = ''
-    export HOME=$(mktemp -d)
-    yarn --offline build
-  '';
+    buildPhase = ''
+      export HOME=$(mktemp -d)
+      yarn --offline build
+    '';
 
-  fixupPhase = ''
-    cp -rf $out/libexec/homer/deps/homer/dist/* $out
-    rm -rf $out/bin $out/libexec
-    cp -r ${config} $out/assets/config.yml
-  '';
-}
+    fixupPhase = ''
+      cp -rf $out/libexec/homer/deps/homer/dist/* $out
+      rm -rf $out/bin $out/libexec
+      cp -r ${config} $out/assets/config.yml
+    '';
+  }

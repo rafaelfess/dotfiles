@@ -1,14 +1,13 @@
-{ ... }:
-{
+{...}: {
   programs.fd = {
     enable = true;
-    ignores = [ ".git/" ];
+    ignores = [".git/"];
     hidden = true;
   };
 
   programs.ripgrep = {
     enable = true;
-    arguments = [ "--ignore-file=$HOME/.rignore" ];
+    arguments = ["--ignore-file=$HOME/.rignore"];
   };
 
   home.file.".rignore".text = ''

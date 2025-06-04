@@ -7,7 +7,6 @@
   python3,
   makeWrapper,
 }:
-
 mkYarnPackage rec {
   pname = "overseerr";
   version = "1.33.2";
@@ -83,6 +82,6 @@ mkYarnPackage rec {
     homepage = "https://github.com/sct/overseerr";
     license = lib.licenses.mit;
     mainProgram = "start";
-    maintainers = with lib.maintainers; [ caarlos0 ];
+    maintainers = with lib.maintainers; [caarlos0];
   };
 }

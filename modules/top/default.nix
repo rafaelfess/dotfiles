@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{config, ...}: {
   xdg.configFile."btop/themes/gruvbox.theme" = {
     source = ./gruvbox-dark.theme;
   };
@@ -36,20 +35,20 @@
       }
       // (
         with config.lib.htop;
-        leftMeters [
-          (bar "AllCPUs2")
-          (bar "Memory")
-          (bar "Swap")
-        ]
+          leftMeters [
+            (bar "AllCPUs2")
+            (bar "Memory")
+            (bar "Swap")
+          ]
       )
       // (
         with config.lib.htop;
-        rightMeters [
-          (text "Tasks")
-          (text "LoadAverage")
-          (text "Uptime")
-          (text "Systemd")
-        ]
+          rightMeters [
+            (text "Tasks")
+            (text "LoadAverage")
+            (text "Uptime")
+            (text "Systemd")
+          ]
       );
   };
 }

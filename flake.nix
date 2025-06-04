@@ -92,7 +92,7 @@
           # ./modules/appimage.nix
           nix-snapd.nixosModules.default
           ./modules/snap.nix
-          { snap.enable = true; }
+          {snap.enable = true;}
           home-manager.nixosModules.home-manager
           {
             users.users.rafael = {

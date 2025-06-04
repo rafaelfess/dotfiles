@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   services.tailscale.enable = true;
 
   # create a oneshot job to authenticate to Tailscale
@@ -15,7 +14,7 @@
       "network-pre.target"
       "tailscale.service"
     ];
-    wantedBy = [ "multi-user.target" ];
+    wantedBy = ["multi-user.target"];
 
     # set this service as a oneshot job
     serviceConfig.Type = "oneshot";

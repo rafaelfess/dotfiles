@@ -61,34 +61,66 @@
 
           # Download and set up AppImages
           ${lib.concatStringsSep "\n" (lib.mapAttrsToList (name: app: ''
-            # Download ${app.name} AppImage
-            ${pkgs.curl}/bin/curl -L -o "${user.home}/${config.appimage.storageDir}/${app.name}.AppImage" "${app.url}"
-            # Make executable
-            chmod +x "${user.home}/${config.appimage.storageDir}/${app.name}.AppImage"
-            # Set ownership
-            chown ${username}:${user.group} "${user.home}/${config.appimage.storageDir}/${app.name}.AppImage"
+              # Download ${app.name} AppImage
+              ${pkgs.curl}/bin/curl -L -o "${user.home}/${config.appimage.storageDir}/${app.name}.AppImage" "${app.url}"
+              # Make executable
+              chmod +x "${user.home}/${config.appimage.storageDir}/${app.name}.AppImage"
+              # Set ownership
+              chown ${username}:${user.group} "${user.home}/${config.appimage.storageDir}/${app.name}.AppImage"
 
-            # Create desktop entry
-            cat > "${user.home}/.local/share/applications/${app.name}.desktop" << EOF
-            [Desktop Entry]
-            Type=Application
-            Name=${if name == "obsidian" then "Obsidian" else if name == "onlyoffice" then "ONLYOFFICE" else app.name}
-            Exec=${user.home}/${config.appimage.storageDir}/${app.name}.AppImage
-            Icon=${if name == "obsidian" then "obsidian" else if name == "onlyoffice" then "onlyoffice-desktopeditors" else app.name}
-            Categories=${if name == "obsidian" then "Office;TextEditor;" else if name == "onlyoffice" then "Office;WordProcessor;Spreadsheet;Presentation;" else "Utility;"}
-            Comment=${if name == "obsidian" then "Knowledge base markdown editor" else if name == "onlyoffice" then "Office suite for documents, spreadsheets and presentations" else "AppImage application"}
-            MimeType=${if name == "obsidian" then "text/markdown;" else if name == "onlyoffice" then "application/vnd.oasis.opendocument.text;application/vnd.oasis.opendocument.spreadsheet;application/vnd.oasis.opendocument.presentation;" else ""}
-            EOF
+              # Create desktop entry
+              cat > "${user.home}/.local/share/applications/${app.name}.desktop" << EOF
+              [Desktop Entry]
+              Type=Application
+              Name=${
+                if name == "obsidian"
+                then "Obsidian"
+                else if name == "onlyoffice"
+                then "ONLYOFFICE"
+                else app.name
+              }
+              Exec=${user.home}/${config.appimage.storageDir}/${app.name}.AppImage
+              Icon=${
+                if name == "obsidian"
+                then "obsidian"
+                else if name == "onlyoffice"
+                then "onlyoffice-desktopeditors"
+                else app.name
+              }
+              Categories=${
+                if name == "obsidian"
+                then "Office;TextEditor;"
+                else if name == "onlyoffice"
+                then "Office;WordProcessor;Spreadsheet;Presentation;"
+                else "Utility;"
+              }
+              Comment=${
+                if name == "obsidian"
+                then "Knowledge base markdown editor"
+                else if name == "onlyoffice"
+                then "Office suite for documents, spreadsheets and presentations"
+                else "AppImage application"
+              }
+              MimeType=${
+                if name == "obsidian"
+                then "text/markdown;"
+                else if name == "onlyoffice"
+                then "application/vnd.oasis.opendocument.text;application/vnd.oasis.opendocument.spreadsheet;application/vnd.oasis.opendocument.presentation;"
+                else ""
+              }
+              EOF
 
-            # Set ownership and permissions for desktop entry
-            chown ${username}:${user.group} "${user.home}/.local/share/applications/${app.name}.desktop"
-            chmod 644 "${user.home}/.local/share/applications/${app.name}.desktop"
+              # Set ownership and permissions for desktop entry
+              chown ${username}:${user.group} "${user.home}/.local/share/applications/${app.name}.desktop"
+              chmod 644 "${user.home}/.local/share/applications/${app.name}.desktop"
 
-            # Update desktop database to refresh GNOME's application list
-            ${pkgs.desktop-file-utils}/bin/update-desktop-database "${user.home}/.local/share/applications"
-          '') config.appimage.apps)}
+              # Update desktop database to refresh GNOME's application list
+              ${pkgs.desktop-file-utils}/bin/update-desktop-database "${user.home}/.local/share/applications"
+            '')
+            config.appimage.apps)}
         '';
-      in lib.concatStrings (lib.mapAttrsToList mkAppImageDir users);
+      in
+        lib.concatStrings (lib.mapAttrsToList mkAppImageDir users);
       deps = [];
     };
 

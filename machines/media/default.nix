@@ -1,12 +1,13 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ pkgs, lib, ... }:
-let
-  overseerr = (pkgs.callPackage ../../pkgs/overseerr { });
-in
 {
+  pkgs,
+  lib,
+  ...
+}: let
+  overseerr = pkgs.callPackage ../../pkgs/overseerr {};
+in {
   imports = [
     ../shared/linux.nix
     ./hardware.nix
@@ -18,7 +19,7 @@ in
   services.nginx = {
     enable = true;
     upstreams = {
-      tautulli.servers."media.local:8181" = { };
+      tautulli.servers."media.local:8181" = {};
     };
     virtualHosts."media.local" = {
       locations."~ /tautulli/(.*)" = {
@@ -33,7 +34,7 @@ in
         '';
       };
       locations."/" = {
-        root = (pkgs.callPackage ../../pkgs/homer { });
+        root = pkgs.callPackage ../../pkgs/homer {};
       };
     };
   };
@@ -92,35 +93,33 @@ in
 
   systemd.services.unpackerr = {
     description = "Unpackerr";
-    after = [ "network.target" ];
-    wantedBy = [ "multi-user.target" ];
+    after = ["network.target"];
+    wantedBy = ["multi-user.target"];
     serviceConfig = {
       Type = "simple";
       User = "carlos";
       Group = "wheel";
-      ExecStart =
-        let
-          config = pkgs.writeText "unpackerr.conf" ''
-            [[sonarr]]
-            url = "http://localhost:8989"
-            api_key = "71c261a86baf491784a60fa7489620fc"
-            delete_orig = true
+      ExecStart = let
+        config = pkgs.writeText "unpackerr.conf" ''
+          [[sonarr]]
+          url = "http://localhost:8989"
+          api_key = "71c261a86baf491784a60fa7489620fc"
+          delete_orig = true
 
-            [[radarr]]
-            url = "http://localhost:7878"
-            api_key = "0042dc1c54444388b0ed680187f11b37"
-            delete_orig = true
-          '';
-        in
-        "${pkgs.unpackerr}/bin/unpackerr -c ${config}";
+          [[radarr]]
+          url = "http://localhost:7878"
+          api_key = "0042dc1c54444388b0ed680187f11b37"
+          delete_orig = true
+        '';
+      in "${pkgs.unpackerr}/bin/unpackerr -c ${config}";
       Restart = "on-failure";
     };
   };
 
   systemd.services.overseerr = {
     description = "Request management and media discovery tool for the Plex ecosystem";
-    after = [ "network.target" ];
-    wantedBy = [ "multi-user.target" ];
+    after = ["network.target"];
+    wantedBy = ["multi-user.target"];
     environment.PORT = "5055";
     serviceConfig = {
       Type = "exec";
@@ -128,7 +127,7 @@ in
       WorkingDirectory = "${overseerr}/libexec/overseerr/deps/overseerr";
       DynamicUser = true;
       ExecStart = "${overseerr}/bin/overseerr";
-      BindPaths = [ "/var/lib/overseerr/:${overseerr}/libexec/overseerr/deps/overseerr/config/" ];
+      BindPaths = ["/var/lib/overseerr/:${overseerr}/libexec/overseerr/deps/overseerr/config/"];
       Restart = "on-failure";
       ProtectHome = true;
       ProtectSystem = "strict";
@@ -149,8 +148,8 @@ in
   };
 
   systemd.services.qbittorrent = {
-    after = [ "network.target" ];
-    wantedBy = [ "multi-user.target" ];
+    after = ["network.target"];
+    wantedBy = ["multi-user.target"];
     serviceConfig = {
       Type = "exec";
       User = "carlos";
@@ -162,8 +161,8 @@ in
   };
 
   systemd.services.flood = {
-    after = [ "network.target" ];
-    wantedBy = [ "multi-user.target" ];
+    after = ["network.target"];
+    wantedBy = ["multi-user.target"];
     serviceConfig = {
       Type = "exec";
       User = "carlos";
