@@ -175,7 +175,13 @@
   };
 
   # Sound Configuration
-  hardware.pulseaudio.enable = false;
+  ## 24.04 or earlier
+  # hardware.pulseaudio.enable = false;
+  ## 25.05 or later
+  services.pulseaudio = {
+    enable = false; # Use PipeWire instead
+    # support32Bit = true;
+  };
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
