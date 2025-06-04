@@ -30,9 +30,17 @@
 
   networking.hostName = "darkstar";
 
+  # https://nixos.wiki/wiki/Fonts
+  # 24.11 (or earlier)
   # https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.zip
+  # fonts.packages = with pkgs; [
+  #   (nerdfonts.override {fonts = ["JetBrainsMono"];})
+  # ];
+  # 25.05 (or later)
   fonts.packages = with pkgs; [
-    (nerdfonts.override {fonts = ["JetBrainsMono"];})
+    nerd-fonts.fira-code
+    nerd-fonts.droid-sans-mono
+    nerd-fonts.jetbrains-mono
   ];
 
   virtualisation = {
