@@ -5,23 +5,23 @@ This is my latest dotfiles generation.
 It contains **home-manager**, **nixOS** and **nix-darwin** configuration
 for several machines and VMs I use.
 
-## Chteasheet
+## Cheatsheet
 
-```bash
+```sh
 sudo nixos-rebuild switch --flake .
 sudo nixos-rebuild switch --flake . --impure
 ```
 
 ## First run
 
-```bash
+```sh
 sh <(curl -L https://nixos.org/nix/install)
 echo "experimental-features = nix-command flakes">~/.config/nix/nix.conf
 ```
 
 On macOS, install homebrew too:
 
-```bash
+```sh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
@@ -32,7 +32,7 @@ get errors like `Could not write domain`.
 
 To apply updates, simply run:
 
-```bash
+```sh
 nix develop -c dot-apply
 
 # pull, update flake, clean old, apply
@@ -49,7 +49,7 @@ nix develop -c dot-clean
 
 To create a release, run:
 
-```bash
+```sh
 nix develop -c dot-release
 ```
 
@@ -65,3 +65,11 @@ chsh -s $(which fish)
 ## Keyboard layouts
 
 Add the US layout so input doesn't wait after opening quotes and such.
+
+## Development
+
+To verify the configuration:
+
+```sh
+nix flake check --no-write-lock-file --show-trace
+```
