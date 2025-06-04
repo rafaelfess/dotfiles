@@ -2,27 +2,17 @@
 
 This is my latest dotfiles generation.
 
-I've been experimenting with many different tools to manage them properly, from
-Ansible to shell scripts, and never liked any of them that much, to be honest.
-
-You can see the history on these repositories:
-
-- [dotfiles.zsh](https://github.com/caarlos0/dotfiles.zsh)
-- [dotfiles.fish](https://github.com/caarlos0/dotfiles.fish)
-
-This is my most recent attempt, using nix.
-
 It contains **home-manager**, **nixOS** and **nix-darwin** configuration
 for several machines and VMs I use.
 
-# Chteasheet
+## Chteasheet
 
 ```bash
 sudo nixos-rebuild switch --flake .
 sudo nixos-rebuild switch --flake . --impure
 ```
 
-# First run
+## First run
 
 ```bash
 sh <(curl -L https://nixos.org/nix/install)
@@ -38,7 +28,7 @@ On macOS, install homebrew too:
 Also make sure the terminal being used has full disk access, otherwise you might
 get errors like `Could not write domain`.
 
-# Updating
+## Updating
 
 To apply updates, simply run:
 
@@ -49,13 +39,13 @@ nix develop -c dot-apply
 nix develop -c dot-sync
 ```
 
-# Clean up
+## Clean up
 
 ```sh
 nix develop -c dot-clean
 ```
 
-# Create release
+## Create release
 
 To create a release, run:
 
@@ -63,7 +53,7 @@ To create a release, run:
 nix develop -c dot-release
 ```
 
-# Post first run
+## Post first run
 
 ## Fish as the default shell
 
