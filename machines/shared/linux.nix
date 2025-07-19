@@ -62,7 +62,7 @@
       "wheel" # Enable sudo
       "networkmanager"
       # "video"
-      # "audio"
+      "audio"
     ];
     shell = pkgs.fish;
     # openssh.authorizedKeys.keys = [
@@ -193,6 +193,7 @@
             "default.clock.quantum" = 1024
             "default.clock.min-quantum" = 32
             "default.clock.max-quantum" = 8192
+            "default.clock.allowed-rates" = [ 44100 48000 88200 96000 176400 192000 352800 384000 ]
         }
       '';
       "context.modules" = ''
@@ -215,11 +216,20 @@
       "stream.properties" = ''
         {
             "resample.quality" = 10
-            "resample.disable" = false
+            "resample.disable" = true
             "channelmix.normalize" = false
             "channelmix.mix-lfe" = false
             "channelmix.upmix" = false
             "channelmix.lfe-cutoff" = 0
+        }
+      '';
+      "alsa.properties" = ''
+        {
+            "alsa.buffer-size" = 2048
+            "alsa.period-size" = 512
+            "alsa.headroom" = 4096
+            "alsa.disable-mmap" = false
+            "alsa.mock.productName" = "Douk K5"
         }
       '';
     };
