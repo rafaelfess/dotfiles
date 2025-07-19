@@ -299,15 +299,15 @@
     },
     "nur": {
       "inputs": {
-        "flake-parts": "flake-parts_2",
+        "flake-parts": "flake-parts_3",
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1752880039,
-        "narHash": "sha256-+ITgg0MpCdbMf96S5vQeSo9Sb0cojKCjjgpwSetKFj8=",
+        "lastModified": 1752958249,
+        "narHash": "sha256-yIgIUORVWZzvN61H8JbDYt3kGisy+OiG/Ro8mpg8uAE=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "0adc5f69f2f38e79ae6e377ddcf770ef9404776a",
+        "rev": "650ca8274beb7dc230dc251d677d0b99d4951199",
         "type": "github"
       },
       "original": {

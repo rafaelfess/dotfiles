@@ -1,7 +1,11 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running 'nixos-help').
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   imports = [
     ../shared/linux.nix
     ./hardware.nix
@@ -65,6 +69,8 @@
   users.users.rafael.extraGroups = [
     "podman"
     "docker"
+    "video" # Required for OBS virtual camera access
+    "input" # Required for device/video access
   ];
 
   services.teamviewer.enable = true;
@@ -98,6 +104,46 @@
   #   '';
   # };
 
+  # Enable OBS Studio with DroidCam support and virtual camera
+  # Note: This adds kernel modules and requires a reboot after applying
+  programs.obs-studio = {
+    enable = true;
+    enableVirtualCamera = true;
+    plugins = with pkgs.obs-studio-plugins; [
+      droidcam-obs
+      obs-multi-rtmp
+      wlrobs
+    ];
+  };
+
+  # Additional video format support
+  nixpkgs.config.packageOverrides = pkgs: {
+    v4l2loopback = pkgs.v4l2loopback.override {
+      kernel = config.boot.kernelPackages.kernel;
+      enableYUYV = true;
+      enableNV12 = true;
+      enableH264 = true;
+      bufferSize = 16;
+    };
+  };
+
+  # Enable NVENC support through NVIDIA driver packages
+  hardware.opengl = {
+    extraPackages = with pkgs; [
+      nvidia-vaapi-driver
+    ];
+    extraPackages32 = with pkgs; [
+      nvidia-vaapi-driver
+    ];
+  };
+
+  # Configure v4l2loopback for OBS virtual camera
+  boot.extraModulePackages = with config.boot.kernelPackages; [v4l2loopback];
+  boot.kernelModules = ["v4l2loopback"];
+  boot.extraModprobeConfig = ''
+    options v4l2loopback devices=1 video_nr=1 card_label="OBS Virtual Camera" exclusive_caps=1 max_buffers=8 max_width=1920 max_height=1080 default_width=1280 default_height=720 default_fps=30
+  '';
+
   environment.systemPackages = with pkgs; [
     dig
     # coreutils-full
@@ -111,6 +157,7 @@
     docker-compose
     # fswatch
     teamviewer
+    v4l-utils # Adds v4l2-ctl and other video utilities
   ];
 
   networking.firewall.allowedTCPPortRanges = [

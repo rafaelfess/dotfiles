@@ -38,6 +38,14 @@
   environment.variables = {
     GTK_IM_MODULE = "cedilla";
     QT_IM_MODULE = "cedilla";
+    # Enable hardware acceleration
+    LIBVA_DRIVER_NAME = "nvidia";
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    GBM_BACKEND = "nvidia-drm"; # Required for proper Wayland support
+    LIBGL_ALWAYS_SOFTWARE = "0"; # Force hardware OpenGL
+    WLR_NO_HARDWARE_CURSORS = "1"; # Fix potential cursor issues on NVIDIA Wayland
+    MOZ_DISABLE_RDD_SANDBOX = "1"; # Required for some hardware acceleration cases
+    NVD_BACKEND = "direct"; # Better performance for the NVIDIA driver
   };
 
   # Configure GTK IMModules to include cedilla for en_US
@@ -82,12 +90,18 @@
     # GNOME Extensions and Tools
     gnomeExtensions.dash-to-dock
     gnomeExtensions.color-picker
+    # gnomeExtensions.system-monitor-tray-indicator
+    gnomeExtensions.astra-monitor
+    gnomeExtensions.zilence
     gnome-tweaks
     # GNOME Applications
     # https://chatgpt.com/c/67a14bd7-e6f4-8012-9b61-40ad317260fb
     gnome-settings-daemon
     gnome-control-center
     dconf-editor
+    # Media Playback
+    totem # GNOME Videos player
+    libva-utils # VA-API utilities
     # Clipboard Support
     wl-clipboard # Wayland clipboard utilities
     xclip # X11 clipboard utilities (fallback)

@@ -4,16 +4,33 @@
   pkgs,
   ...
 }: {
-  # Enable OpenGL
+  # Enable OpenGL with NVIDIA support
   hardware.graphics = {
     enable = true;
+    extraPackages = with pkgs; [
+      vaapiVdpau        # VDPAU-based VA-API implementation
+      libvdpau-va-gl    # VA-API to VDPAU/OpenGL bridge
+      nvidia-vaapi-driver  # NVIDIA VA-API driver
+      libGL             # OpenGL implementation
+      libglvnd          # GL Vendor-Neutral Dispatch library
+      mesa              # OpenGL implementation
+      egl-wayland       # EGL support for Wayland
+      vulkan-loader     # Vulkan support
+    ];
+    extraPackages32 = with pkgs.pkgsi686Linux; [
+      vaapiVdpau
+      libvdpau-va-gl
+      nvidia-vaapi-driver
+      libGL
+      libglvnd
+    ];
   };
 
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = ["nvidia"];
 
   hardware.nvidia = {
-    # Modesetting is required.
+    # Modesetting is required for Wayland
     modesetting.enable = true;
 
     # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
@@ -38,6 +55,12 @@
     # Enable the Nvidia settings menu,
     # accessible via `nvidia-settings`.
     nvidiaSettings = true;
+
+    # Enable the NVIDIA persistence daemon for better stability
+    nvidiaPersistenced = true;
+
+    # Force full composition pipeline for better performance
+    forceFullCompositionPipeline = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     package = config.boot.kernelPackages.nvidiaPackages.stable;

@@ -138,6 +138,8 @@
     sublime-merge
     # Media
     vlc
+    # Remote Desktop Client
+    remmina
   ];
 
   programs.neovim = {
