@@ -185,6 +185,44 @@
       support32Bit = true;
     };
     pulse.enable = true;
+    # Configure high-resolution audio settings for Douk K5 DAC
+    extraConfig.pipewire = {
+      "context.properties" = ''
+        {
+            "default.clock.rate" = 384000
+            "default.clock.quantum" = 1024
+            "default.clock.min-quantum" = 32
+            "default.clock.max-quantum" = 8192
+        }
+      '';
+      "context.modules" = ''
+        [
+            {
+                name = libpipewire-module-protocol-native
+                args = {}
+                flags = [ ifexists nofail ]
+            }
+            {
+                name = libpipewire-module-spa-device-factory
+                args = {}
+            }
+            {
+                name = libpipewire-module-audio-dsp
+                args = {}
+            }
+        ]
+      '';
+      "stream.properties" = ''
+        {
+            "resample.quality" = 10
+            "resample.disable" = false
+            "channelmix.normalize" = false
+            "channelmix.mix-lfe" = false
+            "channelmix.upmix" = false
+            "channelmix.lfe-cutoff" = 0
+        }
+      '';
+    };
   };
 
   # Printing Support
