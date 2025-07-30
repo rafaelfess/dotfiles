@@ -32,7 +32,21 @@
     };
   };
 
-  networking.hostName = "darkstar";
+  networking = {
+    hostName = "darkstar";
+    networkmanager = {
+      enable = true;
+      packages = with pkgs; [
+        networkmanager-l2tp
+      ];
+    };
+  };
+
+  # Enable IPsec for L2TP VPN support
+  services.strongswan = {
+    enable = true;
+    secrets = [ "ipsec.d/ipsec.secrets" ];
+  };
 
   # https://nixos.wiki/wiki/Fonts
   # 24.11 (or earlier)
@@ -150,6 +164,8 @@
     # gcc
     # grpcurl
     inetutils
+    strongswan
+    xl2tpd
     # kind
     # python312Packages.tqdm
     # util-linux
